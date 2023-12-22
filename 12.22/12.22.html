@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roll Dice</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 50%;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body onload="start()">
+
+  <form action="#">
+    <input id="rollbutton" type="button" value="Roll Dice" onclick="rolldice()">
+  </form>
+
+  <img id="die1" src="die1.png" alt="blank image">
+  <img id="die2" src="die1.png" alt="blank image">
+  <img id="die3" src="die1.png" alt="blank image">
+  <img id="die4" src="die1.png" alt="blank image">
+  <img id="die5" src="die1.png" alt="blank image">
+  <img id="die6" src="die1.png" alt="blank image">
+  <img id="die7" src="die1.png" alt="blank image">
+  <img id="die8" src="die1.png" alt="blank image">
+  <img id="die9" src="die1.png" alt="blank image">
+  <img id="die10" src="die1.png" alt="blank image">
+  <img id="die11" src="die1.png" alt="blank image">
+  <img id="die12" src="die1.png" alt="blank image">
+  <!-- Add more image tags for die3 to die12 -->
+
+  <table id="probabilityTable">
+    <tr>
+      <th>Die Number</th>
+      <th>Count</th>
+      <th>Probability (%)</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td id="count1">0</td>
+      <td id="probability1">0.00%</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td id="count2">0</td>
+      <td id="probability2">0.00%</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td id="count3">0</td>
+      <td id="probability3">0.00%</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td id="count4">0</td>
+      <td id="probability4">0.00%</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td id="count5">0</td>
+      <td id="probability5">0.00%</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td id="count6">0</td>
+      <td id="probability6">0.00%</td>
+    </tr>
+  </table>
+
+  <script type="text/javascript">
+    var rollCounts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    function start() {
+      // No changes here
+    }
+
+    function rolldice() {
+      // Clear previous counts
+      rollCounts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+      setimage("die1", 0);
+      setimage("die2", 1);
+      setimage("die3", 2);
+      setimage("die4", 3);
+      setimage("die5", 4);
+      setimage("die6", 5);
+      setimage("die7", 6);
+      setimage("die8", 7);
+      setimage("die9", 8);
+      setimage("die10", 9);
+      setimage("die11", 10);
+      setimage("die12", 11);
+
+      // Update counts and probabilities
+      showProbability();
+    }
+
+    function setimage(dieId, index) {
+      var dieimg = document.getElementById(dieId);
+      var dievalue = Math.floor(1 + Math.random() * 6);
+      dieimg.setAttribute("src", "die" + dievalue + ".png");
+      dieimg.setAttribute("alt", "die image with " + dievalue + " spot(s)");
+
+      // Update counts
+      rollCounts[dievalue - 1]++;
+    }
+
+     function showProbability() {
+      var totalRolls = rollCounts.reduce((sum, count) => sum + count, 0);
+
+      for (var i = 0; i < rollCounts.length; i++) {
+        var probability = (rollCounts[i] / totalRolls) * 100;
+        document.getElementById("count" + (i + 1)).textContent = rollCounts[i];
+        document.getElementById("probability" + (i + 1)).textContent = probability.toFixed(2) + "%";
+      }
+    }
+  </script>
+
+</body>
+
+</html>
